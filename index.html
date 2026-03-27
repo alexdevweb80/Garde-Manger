@@ -133,7 +133,7 @@
                         <h2 class="playfair" style="font-size: 1.8rem;">Cellier Frais</h2>
                     </div>
                     <div class="add-item">
-                        <input type="text" id="frigo-name" placeholder="Ex: Lait, Beurre..." class="glass-input">
+                        <input type="text" id="frigo-name" list="frigo-suggestions" placeholder="Ex: Lait, Beurre..." class="glass-input" autocomplete="off">
                         <input type="number" id="frigo-quantity" value="1" min="1" class="glass-input">
                         <button onclick="addItem('frigo')" class="btn-add">Ajouter</button>
                     </div>
@@ -146,13 +146,125 @@
                         <h2 class="playfair" style="font-size: 1.8rem;">Réserve Sèche</h2>
                     </div>
                     <div class="add-item">
-                        <input type="text" id="placard-name" placeholder="Ex: Pâtes, Riz..." class="glass-input">
+                        <input type="text" id="placard-name" list="placard-suggestions" placeholder="Ex: Pâtes, Riz..." class="glass-input" autocomplete="off">
                         <input type="number" id="placard-quantity" value="1" min="1" class="glass-input">
                         <button onclick="addItem('placard')" class="btn-add">Ajouter</button>
                     </div>
                     <div id="placard-list" class="items-list"></div>
                 </div>
             </div>
+
+            <!-- Datalist Frigo -->
+            <datalist id="frigo-suggestions">
+                <option value="Lait">🥛 Lait</option>
+                <option value="Lait demi-écrémé"></option>
+                <option value="Lait entier"></option>
+                <option value="Beurre">🧈 Beurre</option>
+                <option value="Crème fraîche">🥛 Crème fraîche</option>
+                <option value="Crème liquide"></option>
+                <option value="Fromage">🧀 Fromage</option>
+                <option value="Camembert"></option>
+                <option value="Brie"></option>
+                <option value="Comté"></option>
+                <option value="Emmental"></option>
+                <option value="Gouda"></option>
+                <option value="Yaourt nature">🫙 Yaourt nature</option>
+                <option value="Yaourt aux fruits"></option>
+                <option value="Yaourt grec"></option>
+                <option value="Oeufs">🥚 Oeufs</option>
+                <option value="Poulet">🍗 Poulet</option>
+                <option value="Escalope de poulet"></option>
+                <option value="Blanc de poulet"></option>
+                <option value="Steak haché">🥩 Steak haché</option>
+                <option value="Boeuf"></option>
+                <option value="Côte de porc">🥓 Côte de porc</option>
+                <option value="Jambon">🥓 Jambon</option>
+                <option value="Lardons"></option>
+                <option value="Saumon">🐟 Saumon</option>
+                <option value="Thon"></option>
+                <option value="Cabillaud"></option>
+                <option value="Crevettes">🦐 Crevettes</option>
+                <option value="Tomate">🍅 Tomate</option>
+                <option value="Salade">🥗 Salade</option>
+                <option value="Laitue"></option>
+                <option value="Roquette"></option>
+                <option value="Carotte">🥕 Carotte</option>
+                <option value="Courgette">🥒 Courgette</option>
+                <option value="Poivron">🌶️ Poivron</option>
+                <option value="Brocoli">🥦 Brocoli</option>
+                <option value="Épinards">🌿 Épinards</option>
+                <option value="Champignons">🍄 Champignons</option>
+                <option value="Avocat">🥑 Avocat</option>
+                <option value="Concombre">🥒 Concombre</option>
+                <option value="Pomme">🍎 Pomme</option>
+                <option value="Banane">🍌 Banane</option>
+                <option value="Orange">🍊 Orange</option>
+                <option value="Fraises">🍓 Fraises</option>
+                <option value="Raisin">🍇 Raisin</option>
+                <option value="Jus d'orange">🧃 Jus d'orange</option>
+                <option value="Jus de pomme"></option>
+                <option value="Eau">💧 Eau</option>
+                <option value="Vin blanc">🍷 Vin blanc</option>
+                <option value="Vin rouge"></option>
+                <option value="Bière">🍺 Bière</option>
+                <option value="Mayonnaise">🧴 Mayonnaise</option>
+                <option value="Moutarde"></option>
+                <option value="Ketchup"></option>
+            </datalist>
+
+            <!-- Datalist Placard -->
+            <datalist id="placard-suggestions">
+                <option value="Pâtes">🍝 Pâtes</option>
+                <option value="Spaghetti"></option>
+                <option value="Penne"></option>
+                <option value="Tagliatelles"></option>
+                <option value="Macaroni"></option>
+                <option value="Riz">🍚 Riz</option>
+                <option value="Riz basmati"></option>
+                <option value="Riz complet"></option>
+                <option value="Quinoa">🌾 Quinoa</option>
+                <option value="Lentilles">🫘 Lentilles</option>
+                <option value="Haricots blancs"></option>
+                <option value="Pois chiches"></option>
+                <option value="Farine">🌾 Farine</option>
+                <option value="Sucre">🍬 Sucre</option>
+                <option value="Sucre glace"></option>
+                <option value="Sel">🧂 Sel</option>
+                <option value="Poivre"></option>
+                <option value="Huile d'olive">🫒 Huile d'olive</option>
+                <option value="Huile de tournesol"></option>
+                <option value="Vinaigre">🧴 Vinaigre</option>
+                <option value="Sauce tomate">🍅 Sauce tomate</option>
+                <option value="Concentré de tomate"></option>
+                <option value="Bouillon de poulet"></option>
+                <option value="Bouillon de légumes"></option>
+                <option value="Café">☕ Café</option>
+                <option value="Café en grains"></option>
+                <option value="Thé">🍵 Thé</option>
+                <option value="Tisane"></option>
+                <option value="Chocolat noir">🍫 Chocolat noir</option>
+                <option value="Chocolat au lait"></option>
+                <option value="Cacao en poudre"></option>
+                <option value="Nutella"></option>
+                <option value="Miel">🍯 Miel</option>
+                <option value="Confiture">🍓 Confiture</option>
+                <option value="Biscuits">🍪 Biscuits</option>
+                <option value="Céréales">🌾 Céréales</option>
+                <option value="Muesli"></option>
+                <option value="Pain de mie">🍞 Pain de mie</option>
+                <option value="Biscottes"></option>
+                <option value="Soupe en boîte">🍲 Soupe en boîte</option>
+                <option value="Thon en boîte">🐟 Thon en boîte</option>
+                <option value="Sardines en boîte"></option>
+                <option value="Maïs en boîte">🌽 Maïs en boîte</option>
+                <option value="Papier toilette">🧻 Papier toilette</option>
+                <option value="Essuie-tout"></option>
+                <option value="Liquide vaisselle">🧹 Liquide vaisselle</option>
+                <option value="Lessive"></option>
+                <option value="Savon">🧼 Savon</option>
+                <option value="Shampoing"></option>
+            </datalist>
+
 
             <!-- Liste de courses -->
             <div class="shopping-section glass-card">
