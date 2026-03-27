@@ -1,5 +1,5 @@
 // script.js
-import { initAuth, loginUser, signUpUser, loginWithGoogle, logoutUser } from './auth.js';
+import { initAuth, loginUser, signUpUser, logoutUser } from './auth.js';
 import { initInventory } from './inventory.js';
 import { initShoppingList } from './shopping-list.js';
 import { initAnimations, showNotification } from './animation.js';
@@ -15,7 +15,6 @@ const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
 const showSignup = document.getElementById('show-signup');
 const showLogin = document.getElementById('show-login');
-const loginBtn = document.getElementById('login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 
 const loginContainer = document.getElementById('login-container');
@@ -72,16 +71,6 @@ if (signupForm) {
             showNotification(`Erreur: ${error}`, 'error');
         } else {
             showNotification('Compte créé avec succès !', 'success');
-        }
-    };
-}
-
-// Google Login
-if (loginBtn) {
-    loginBtn.onclick = async () => {
-        const { user, error } = await loginWithGoogle();
-        if (error) {
-            showNotification(`Erreur: ${error}`, 'error');
         }
     };
 }

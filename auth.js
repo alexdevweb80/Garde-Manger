@@ -2,10 +2,8 @@ import {
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword, 
     signOut, 
-    onAuthStateChanged,
-    GoogleAuthProvider,
-    signInWithPopup
-} from "firebase/auth";
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { auth } from "./config.js";
 
 export const signUpUser = async (email, password) => {
@@ -32,16 +30,6 @@ export const logoutUser = async () => {
         return { error: null };
     } catch (error) {
         return { error: error.message };
-    }
-};
-
-export const loginWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-        const result = await signInWithPopup(auth, provider);
-        return { user: result.user, error: null };
-    } catch (error) {
-        return { user: null, error: error.message };
     }
 };
 
