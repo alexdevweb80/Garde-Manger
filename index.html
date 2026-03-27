@@ -27,180 +27,185 @@
         </div>
 
         <div id="auth-section" class="auth-section">
+            <div id="file-warning" class="alert-stat glass-card" style="display:none; margin-bottom: 20px; padding: 15px; color: white; max-width: 420px; text-align: center;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p style="font-size: 0.9rem;">Mode local (file://) détecté. Utilisez un serveur local pour l'authentification.</p>
+            </div>
+            
             <div id="user-info" class="user-info" style="display:none;"></div>
             
-            <!-- Login Form -->
-            <div id="login-container" class="auth-container">
-                <h2 class="playfair form-title">Connexion</h2>
-                <form id="login-form" class="glass-form">
-                    <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="login-email" placeholder="Email" class="glass-input" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="login-password" placeholder="Mot de passe" class="glass-input" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span>Se connecter</span>
-                    </button>
-                </form>
-                <p class="auth-toggle">Pas encore de compte ? <a href="#" id="show-signup">Créer un compte</a></p>
+            <div id="auth-card" class="auth-card-wrapper">
+                <div class="auth-tabs">
+                    <button id="tab-login" class="auth-tab active">Connexion</button>
+                    <button id="tab-signup" class="auth-tab">Inscription</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="login-container" class="auth-container">
+                    <form id="login-form" class="glass-form">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" placeholder="Email" class="glass-input" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="Mot de passe" class="glass-input" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Se connecter</span>
+                            <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Signup Form -->
+                <div id="signup-container" class="auth-container hidden">
+                    <form id="signup-form" class="glass-form">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="signup-email" placeholder="Email" class="glass-input" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="signup-password" placeholder="Mot de passe" class="glass-input" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-shield-alt"></i>
+                            <input type="password" id="signup-confirm-password" placeholder="Confirmer" class="glass-input" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-full">
+                            <span>S'inscrire</span>
+                            <i class="fas fa-user-plus" style="margin-left: 10px;"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
 
-            <!-- Signup Form -->
-            <div id="signup-container" class="auth-container" style="display:none;">
-                <h2 class="playfair form-title">Créer un compte</h2>
-                <form id="signup-form" class="glass-form">
-                    <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="signup-email" placeholder="Email" class="glass-input" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="signup-password" placeholder="Mot de passe" class="glass-input" required>
-                    </div>
-                    <div class="input-group">
-                        <i class="fas fa-check-circle"></i>
-                        <input type="password" id="signup-confirm-password" placeholder="Confirmer le mot de passe" class="glass-input" required>
-                    </div>
-                    <button type="submit" class="btn btn-success btn-full">
-                        <i class="fas fa-user-plus"></i>
-                        <span>S'inscrire</span>
-                    </button>
-                </form>
-                <p class="auth-toggle">Déjà un compte ? <a href="#" id="show-login">Se connecter</a></p>
-            </div>
-
-            <button id="logout-btn" class="btn btn-danger btn-glass" style="display:none;">
+            <button id="logout-btn" class="btn btn-danger btn-glass" style="display:none; margin-top: 30px;">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Déconnexion</span>
             </button>
         </div>
 
         <div id="dashboard" class="dashboard" style="display:none;">
+            <!-- Welcome Header -->
+            <div class="header" style="margin-bottom: 40px;">
+                <h2 id="welcome-msg" class="playfair" style="font-size: 2.5rem;">Tableau de Bord</h2>
+                <p class="subtitle">Votre Inventaire Nebula</p>
+            </div>
+
             <!-- Statistiques avec animations -->
             <div class="stats-grid">
-                <div class="stat-card glass-card" data-aos="fade-up">
+                <div class="stat-card glass-card">
                     <div class="stat-icon">
                         <i class="fas fa-boxes"></i>
                     </div>
                     <div class="stat-content">
-                        <h3>Total produits</h3>
-                        <p id="total-products" class="stat-number">0</p>
+                        <h3>Total Produits</h3>
+                        <p id="total-count" class="stat-number">0</p>
                     </div>
                 </div>
-                <div class="stat-card glass-card alert-stat" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon" style="color: var(--danger); background: rgba(239, 68, 68, 0.1);">
+                        <i class="fas fa-exclamation-circle"></i>
                     </div>
                     <div class="stat-content">
-                        <h3>Stock critique</h3>
-                        <p id="critical-products" class="stat-number">0</p>
+                        <h3>Stocks Critiques</h3>
+                        <p id="critical-count" class="stat-number">0</p>
                     </div>
                 </div>
-                <div class="stat-card glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stat-icon">
-                        <i class="fas fa-shopping-cart"></i>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon" style="color: var(--warning); background: rgba(245, 158, 11, 0.1);">
+                        <i class="fas fa-shopping-basket"></i>
                     </div>
                     <div class="stat-content">
-                        <h3>À acheter</h3>
-                        <p id="shopping-items" class="stat-number">0</p>
+                        <h3>Liste d'achats</h3>
+                        <p id="shopping-items-count" class="stat-number">0</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Catégories avec effet glassmorphisme -->
+            <!-- Catégories -->
             <div class="categories-container">
-                <div class="category frigo glass-card" data-aos="fade-right">
+                <div class="category frigo glass-card">
                     <div class="category-header">
                         <i class="fas fa-snowflake"></i>
-                        <h2>Cellier Frais</h2>
-                        <span class="badge">Frigo</span>
+                        <h2 class="playfair" style="font-size: 1.8rem;">Cellier Frais</h2>
                     </div>
                     <div class="add-item">
-                        <div class="input-group">
-                            <i class="fas fa-apple-alt"></i>
-                            <input type="text" id="frigo-item-name" placeholder="Nom du produit" class="glass-input">
-                        </div>
-                        <div class="input-group">
-                            <i class="fas fa-hashtag"></i>
-                            <input type="number" id="frigo-item-quantity" placeholder="Quantité" value="1" min="1"
-                                class="glass-input">
-                        </div>
-                        <div class="input-group">
-                            <i class="fas fa-balance-scale"></i>
-                            <select id="frigo-item-unit" class="glass-select">
-                                <option value="pièce(s)">Pièce(s)</option>
-                                <option value="kg">Kg</option>
-                                <option value="litre(s)">Litre(s)</option>
-                                <option value="sachet(s)">Sachet(s)</option>
-                                <option value="boîte(s)">Boîte(s)</option>
-                            </select>
-                        </div>
-                        <button onclick="window.addItem('frigo')" class="btn-add">
-                            <i class="fas fa-plus"></i>
-                            <span>Ajouter</span>
-                        </button>
+                        <input type="text" id="frigo-name" placeholder="Ex: Lait, Beurre..." class="glass-input">
+                        <input type="number" id="frigo-quantity" value="1" min="1" class="glass-input" style="max-width: 80px;">
+                        <button onclick="addItem('frigo')" class="btn-add">Ajouter</button>
                     </div>
-                    <div id="frigo-items" class="items-list"></div>
+                    <div id="frigo-list" class="items-list"></div>
                 </div>
 
-                <div class="category placard glass-card" data-aos="fade-left">
+                <div class="category placard glass-card">
                     <div class="category-header">
                         <i class="fas fa-archive"></i>
-                        <h2>Réserve Sèche</h2>
-                        <span class="badge">Placard</span>
+                        <h2 class="playfair" style="font-size: 1.8rem;">Réserve Sèche</h2>
                     </div>
                     <div class="add-item">
-                        <div class="input-group">
-                            <i class="fas fa-box"></i>
-                            <input type="text" id="placard-item-name" placeholder="Nom du produit" class="glass-input">
-                        </div>
-                        <div class="input-group">
-                            <i class="fas fa-hashtag"></i>
-                            <input type="number" id="placard-item-quantity" placeholder="Quantité" value="1" min="1"
-                                class="glass-input">
-                        </div>
-                        <div class="input-group">
-                            <i class="fas fa-balance-scale"></i>
-                            <select id="placard-item-unit" class="glass-select">
-                                <option value="pièce(s)">Pièce(s)</option>
-                                <option value="kg">Kg</option>
-                                <option value="litre(s)">Litre(s)</option>
-                                <option value="sachet(s)">Sachet(s)</option>
-                                <option value="boîte(s)">Boîte(s)</option>
-                            </select>
-                        </div>
-                        <button onclick="window.addItem('placard')" class="btn-add">
-                            <i class="fas fa-plus"></i>
-                            <span>Ajouter</span>
-                        </button>
+                        <input type="text" id="placard-name" placeholder="Ex: Pâtes, Riz..." class="glass-input">
+                        <input type="number" id="placard-quantity" value="1" min="1" class="glass-input" style="max-width: 80px;">
+                        <button onclick="addItem('placard')" class="btn-add">Ajouter</button>
                     </div>
-                    <div id="placard-items" class="items-list"></div>
+                    <div id="placard-list" class="items-list"></div>
                 </div>
             </div>
 
-            <!-- Liste de course avec design chic -->
-            <div class="shopping-section glass-card" data-aos="fade-up">
+            <!-- Liste de courses -->
+            <div class="shopping-section glass-card">
                 <div class="section-header">
-                    <i class="fas fa-list-ul"></i>
-                    <h2>Liste de Course</h2>
-                    <button id="clear-shopping-list" class="btn-clear" style="display:none;">
-                        <i class="fas fa-trash-alt"></i>
+                    <i class="fas fa-shopping-cart"></i>
+                    <h2 class="playfair" style="font-size: 2rem;">Liste de Courses</h2>
+                    <button id="clear-shopping-list" onclick="clearShoppingList()" class="btn btn-danger btn-glass" style="display:none;">
+                        <i class="fas fa-trash"></i>
                         <span>Vider</span>
                     </button>
                 </div>
                 <div id="shopping-list" class="shopping-list"></div>
-                <div class="shopping-empty" id="shopping-empty">
-                    <i class="fas fa-shopping-basket"></i>
-                    <p>Votre liste de course est vide</p>
-                </div>
             </div>
         </div>
     </div>
 
+    <!-- Tab switching — plain script, runs even if Firebase fails -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tabLogin  = document.getElementById('tab-login');
+            var tabSignup = document.getElementById('tab-signup');
+            var loginBox  = document.getElementById('login-container');
+            var signupBox = document.getElementById('signup-container');
+
+            function showLogin() {
+                tabLogin.classList.add('active');
+                tabSignup.classList.remove('active');
+                loginBox.classList.remove('hidden');
+                loginBox.style.display  = 'block';
+                loginBox.style.opacity  = '1';
+                loginBox.style.transform = 'translateX(0)';
+                signupBox.classList.add('hidden');
+                signupBox.style.display = 'none';
+            }
+
+            function showSignup() {
+                tabSignup.classList.add('active');
+                tabLogin.classList.remove('active');
+                signupBox.classList.remove('hidden');
+                signupBox.style.display  = 'block';
+                signupBox.style.opacity  = '1';
+                signupBox.style.transform = 'translateX(0)';
+                loginBox.classList.add('hidden');
+                loginBox.style.display  = 'none';
+            }
+
+            if (tabLogin)  tabLogin.addEventListener('click',  showLogin);
+            if (tabSignup) tabSignup.addEventListener('click', showSignup);
+
+            // Start with login visible
+            showLogin();
+        });
+    </script>
     <script type="module" src="script.js"></script>
 </body>
 

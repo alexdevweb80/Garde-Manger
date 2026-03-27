@@ -43,6 +43,7 @@ export const initAuth = () => {
         const loginContainer = document.getElementById('login-container');
         const signupContainer = document.getElementById('signup-container');
         const socialAuth = document.getElementById('social-auth');
+        const authCard = document.getElementById('auth-card');
 
         if (user) {
             // User is signed in
@@ -55,10 +56,8 @@ export const initAuth = () => {
             `;
             logoutBtn.style.display = 'inline-flex';
             
-            // Hide auth forms
-            if (loginContainer) loginContainer.style.display = 'none';
-            if (signupContainer) signupContainer.style.display = 'none';
-            if (socialAuth) socialAuth.style.display = 'none';
+            // Hide auth card
+            if (authCard) authCard.style.display = 'none';
 
             // Dispatch event for other modules
             const event = new CustomEvent('userLoggedIn', { detail: user });
@@ -70,10 +69,8 @@ export const initAuth = () => {
             userInfo.style.display = 'none';
             logoutBtn.style.display = 'none';
             
-            // Show login form by default
-            if (loginContainer) loginContainer.style.display = 'block';
-            if (signupContainer) signupContainer.style.display = 'none';
-            if (socialAuth) socialAuth.style.display = 'block';
+            // Show auth card only — tab state managed by inline script
+            if (authCard) authCard.style.display = 'block';
         }
     });
 };

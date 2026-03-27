@@ -1,49 +1,72 @@
-// Ajouter en haut
-import { showNotification } from './animations.js';
+import { showNotification } from './animation.js';
+import { db, auth } from './config.js';
+import { 
+    collection, 
+    addDoc,
+    getDocs, 
+    doc, 
+    query, 
+    where, 
+    deleteDoc, 
+    writeBatch,
+    onSnapshot,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Modifier removeFromShoppingList
-export async function removeFromShoppingList(itemId) {
+export function initShoppingList(user) {
+    if (!user) return;
+    const q = query(collection(db, 'shoppingList'), where('userId', '==', user.uid), orderBy('createdAt', 'desc'));
+    onSnapshot(q, (snapshot) => {
+        renderShoppingList(snapshot);
+    });
+}
+
+function renderShoppingList(snapshot) {
+    const container = document.getElementById('shopping-list');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    let count = 0;
+
+    snapshot.forEach((doc) => {
+        const item = doc.data();
+        count++;
+        const div = document.createElement('div');
+        div.className = 'shopping-item glass-card';
+        div.innerHTML = `
+            <div class="shopping-item-info">
+                <p class="shopping-item-name">${item.name}</p>
+                <p class="shopping-item-quantity">Besoin de: ${item.quantity}</p>
+            </div>
+            <button onclick="removeShoppingItem('${doc.id}')" class="btn-danger btn-sm"><i class="fas fa-check"></i></button>
+        `;
+        container.appendChild(div);
+    });
+
+    document.getElementById('shopping-items-count').textContent = count;
+    const clearBtn = document.getElementById('clear-shopping-list');
+    if (clearBtn) clearBtn.style.display = count === 0 ? 'none' : 'inline-flex';
+}
+
+export async function removeShoppingItem(id) {
     try {
-        await deleteDoc(doc(db, 'shoppingList', itemId));
-        await loadShoppingList();
-
-        const container = document.getElementById('shopping-list');
-        const itemCount = container.children.length;
-        document.getElementById('shopping-items').textContent = itemCount;
-
-        const clearBtn = document.getElementById('clear-shopping-list');
-        clearBtn.style.display = itemCount === 0 ? 'none' : 'block';
-
-        showNotification('Article retiré de la liste de course', 'success');
-    } catch (error) {
-        console.error('Erreur:', error);
-        showNotification('Erreur lors de la suppression', 'error');
+        await deleteDoc(doc(db, 'shoppingList', id));
+        showNotification("Article récupéré !", "success");
+    } catch (e) {
+        showNotification("Erreur", "error");
     }
 }
 
-// Modifier clearShoppingList
-async function clearShoppingList() {
-    if (confirm('Voulez-vous vraiment vider la liste de course ?')) {
-        try {
-            const q = query(
-                collection(db, 'shoppingList'),
-                where('userId', '==', currentUser.uid)
-            );
-
-            const querySnapshot = await getDocs(q);
-            const batch = writeBatch(db);
-
-            querySnapshot.forEach((doc) => {
-                batch.delete(doc.ref);
-            });
-
-            await batch.commit();
-            await loadShoppingList();
-            document.getElementById('shopping-items').textContent = 0;
-            showNotification('Liste de course vidée', 'success');
-        } catch (error) {
-            console.error('Erreur:', error);
-            showNotification('Erreur lors du vidage', 'error');
-        }
-    }
+export async function clearShoppingList() {
+    if (!confirm('Vider toute la liste ?')) return;
+    const user = auth.currentUser;
+    const q = query(collection(db, 'shoppingList'), where('userId', '==', user.uid));
+    const snapshot = await getDocs(q);
+    const batch = writeBatch(db);
+    snapshot.forEach(d => batch.delete(d.ref));
+    await batch.commit();
+    showNotification("Liste vidée", "success");
 }
+
+window.removeShoppingItem = removeShoppingItem;
+window.clearShoppingList = clearShoppingList;
