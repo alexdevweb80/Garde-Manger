@@ -106,11 +106,12 @@ function getEmoji(name, category) {
 export function initInventory(user) {
     if (!user) return;
 
-    const qFrigo   = query(collection(db, 'inventory'), where('userId', '==', user.uid), where('category', '==', 'frigo'),   orderBy('createdAt', 'desc'));
-    const qPlacard = query(collection(db, 'inventory'), where('userId', '==', user.uid), where('category', '==', 'placard'), orderBy('createdAt', 'desc'));
+    // No orderBy → no composite index required
+    const qFrigo   = query(collection(db, 'inventory'), where('userId', '==', user.uid), where('category', '==', 'frigo'));
+    const qPlacard = query(collection(db, 'inventory'), where('userId', '==', user.uid), where('category', '==', 'placard'));
 
-    onSnapshot(qFrigo,   snap => renderList(snap, 'frigo-list'));
-    onSnapshot(qPlacard, snap => renderList(snap, 'placard-list'));
+    onSnapshot(qFrigo,   snap => renderList(snap, 'frigo-list'),   err => showNotification('Erreur chargement frigo: ' + err.message, 'error'));
+    onSnapshot(qPlacard, snap => renderList(snap, 'placard-list'), err => showNotification('Erreur chargement placard: ' + err.message, 'error'));
 }
 
 // ─── Render list ──────────────────────────────────────────────────────────────
@@ -186,7 +187,7 @@ export async function addItem(category) {
         await addDoc(collection(db, 'inventory'), {
             name, quantity, category,
             userId: user.uid,
-            createdAt: serverTimestamp()
+            createdAt: Date.now()
         });
         nameInput.value     = '';
         quantityInput.value = '1';

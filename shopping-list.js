@@ -17,10 +17,10 @@ export function initShoppingList(user) {
     if (!user) return;
     const q = query(
         collection(db, 'shoppingList'),
-        where('userId', '==', user.uid),
-        orderBy('createdAt', 'desc')
+        where('userId', '==', user.uid)
+        // No orderBy → no composite index required
     );
-    onSnapshot(q, snapshot => renderShoppingList(snapshot));
+    onSnapshot(q, snapshot => renderShoppingList(snapshot), err => console.error('Shopping list error:', err));
 }
 
 function renderShoppingList(snapshot) {
