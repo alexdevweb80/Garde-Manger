@@ -27,11 +27,62 @@
         </div>
 
         <div id="auth-section" class="auth-section">
-            <div id="user-info" class="user-info"></div>
-            <button id="login-btn" class="btn btn-primary btn-glass">
-                <i class="fab fa-google"></i>
-                <span>Connexion avec Google</span>
-            </button>
+            <div id="user-info" class="user-info" style="display:none;"></div>
+            
+            <!-- Login Form -->
+            <div id="login-container" class="auth-container">
+                <h2 class="playfair form-title">Connexion</h2>
+                <form id="login-form" class="glass-form">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="Email" class="glass-input" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Mot de passe" class="glass-input" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Se connecter</span>
+                    </button>
+                </form>
+                <p class="auth-toggle">Pas encore de compte ? <a href="#" id="show-signup">Créer un compte</a></p>
+                <div class="separator"><span>OU</span></div>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-container" class="auth-container" style="display:none;">
+                <h2 class="playfair form-title">Créer un compte</h2>
+                <form id="signup-form" class="glass-form">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signup-email" placeholder="Email" class="glass-input" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signup-password" placeholder="Mot de passe" class="glass-input" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-check-circle"></i>
+                        <input type="password" id="signup-confirm-password" placeholder="Confirmer le mot de passe" class="glass-input" required>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-full">
+                        <i class="fas fa-user-plus"></i>
+                        <span>S'inscrire</span>
+                    </button>
+                </form>
+                <p class="auth-toggle">Déjà un compte ? <a href="#" id="show-login">Se connecter</a></p>
+                <div class="separator"><span>OU</span></div>
+            </div>
+
+            <!-- Google Login (Global) -->
+            <div id="social-auth" class="social-auth">
+                <button id="login-btn" class="btn btn-glass btn-full">
+                    <i class="fab fa-google"></i>
+                    <span>Continuer avec Google</span>
+                </button>
+            </div>
+
             <button id="logout-btn" class="btn btn-danger btn-glass" style="display:none;">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Déconnexion</span>
