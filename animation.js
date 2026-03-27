@@ -42,36 +42,7 @@ function createParticles() {
 }
 
 export function init3DTilt(elementId) {
-    const el = document.getElementById(elementId);
-    if (!el) return;
-
-    el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (centerY - y) / 10; // Inverse pour un effet naturel
-        const rotateY = (x - centerX) / 10;
-
-        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        
-        // Dynamic shimmer based on mouse
-        const shimmerX = (x / rect.width) * 100;
-        const shimmerY = (y / rect.height) * 100;
-        el.style.setProperty('--shimmer-pos', `${shimmerX}% ${shimmerY}%`);
-    });
-
-    el.addEventListener('mouseleave', () => {
-        el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        el.style.transition = 'all 0.5s ease';
-    });
-    
-    el.addEventListener('mouseenter', () => {
-        el.style.transition = 'none';
-    });
+    // Disabled — no card movement per user preference
 }
 
 
@@ -100,27 +71,7 @@ function initScrollAnimations() {
 }
 
 function initHoverEffects() {
-    const cards = document.querySelectorAll('.glass-card');
-
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
+    // Disabled — no card movement per user preference
 }
 
 // Animation de chargement

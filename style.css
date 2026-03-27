@@ -60,7 +60,6 @@ body {
 
 .glass-card:hover {
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
@@ -227,30 +226,154 @@ body {
     border-radius: 10px;
 }
 
+/* ── Inventory Item Cards ───────────────────────────────────── */
 .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.02);
+    padding: 18px 22px;
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 18px;
     border-left: 4px solid var(--success);
+    gap: 16px;
+    transition: all 0.3s ease;
+    animation: slideInUp 0.35s ease both;
+}
+
+.item:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .item.critical {
+    border-left-color: var(--warning);
+    background: rgba(245, 158, 11, 0.08);
+}
+
+.item.out-of-stock {
     border-left-color: var(--danger);
-    background: rgba(239, 68, 68, 0.05);
+    background: rgba(239, 68, 68, 0.1);
+    opacity: 0.85;
+}
+
+.item-info {
+    flex: 1;
+    min-width: 0;
 }
 
 .item-name {
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
     margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.item-quantity {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
+.item-emoji {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
+}
+
+.item-quantity-label {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 500;
+}
+
+/* ── Quantity Controls ─────────────────────────────────────── */
+.item-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.ctrl-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.07);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.ctrl-btn:hover:not(:disabled) {
+    transform: scale(1.15);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.ctrl-btn.plus:hover:not(:disabled) {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: var(--success);
+    box-shadow: 0 0 10px rgba(16,185,129,0.3);
+}
+
+.ctrl-btn.minus:hover:not(:disabled) {
+    background: rgba(245, 158, 11, 0.25);
+    border-color: var(--warning);
+}
+
+.ctrl-btn.remove:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: var(--danger);
+    box-shadow: 0 0 10px rgba(239,68,68,0.3);
+}
+
+.ctrl-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ── Quantity Badge ────────────────────────────────────────── */
+.qty-badge {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    font-family: var(--font-heading);
+    transition: all 0.3s;
+}
+
+.qty-ok       { background: rgba(16, 185, 129, 0.2);  color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+.qty-critical { background: rgba(245, 158, 11, 0.2);  color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.qty-zero     { background: rgba(239, 68, 68, 0.2);   color: #f87171; border: 1px solid rgba(239,68,68,0.3);  }
+
+/* ── Empty State ───────────────────────────────────────────── */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 40px 20px;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    opacity: 0.4;
+}
+
+.empty-state p {
+    font-size: 0.95rem;
+    font-style: italic;
 }
 
 /* Shopping List Section */
@@ -293,12 +416,94 @@ body {
     gap: 20px;
 }
 
+/* ── Shopping List Item Cards ──────────────────────────────── */
 .shopping-item {
-    padding: 20px;
+    padding: 20px 22px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    border-bottom: 2px solid var(--warning);
+    gap: 14px;
+    border-top: 3px solid var(--warning);
+    background: rgba(245, 158, 11, 0.06);
+    animation: slideInUp 0.35s ease both;
+}
+
+.shopping-item.rupture {
+    border-top-color: var(--danger);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.shopping-item-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.shopping-item-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+}
+
+.shopping-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.shopping-qty {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.6);
+}
+
+.shopping-qty strong {
+    color: #fbbf24;
+}
+
+/* RUPTURE badge */
+.badge-rupture {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(239,68,68,0.25);
+    color: #f87171;
+    border: 1px solid rgba(239,68,68,0.4);
+    border-radius: 8px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse-danger 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-danger {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+    50%       { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+}
+
+/* Acheté button */
+.btn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,129,0.35);
+    color: #34d399;
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.btn-check:hover {
+    background: rgba(16,185,129,0.3);
+    box-shadow: 0 0 12px rgba(16,185,129,0.3);
+    transform: scale(1.05);
 }
 
 /* Notifications Premium */
@@ -560,13 +765,12 @@ body {
 }
 
 .btn:hover:not(:disabled) {
-    transform: translateY(-4px) scale(1.02);
     filter: brightness(1.15);
     box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
 }
 
 .btn:active:not(:disabled) {
-    transform: translateY(-1px) scale(0.98);
+    filter: brightness(0.95);
 }
 
 .btn:disabled {
