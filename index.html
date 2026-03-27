@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>
+        Garde-Manger - Gestion d'Inventaire Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="container glass-effect">
+        <div class="header">
+            <div class="logo-section">
+                <i class="fas fa-utensils"></i>
+                <h1 class="playfair">Garde-Manger</h1>
+            </div>
+            <p class="subtitle">Gestion d'inventaire gastronomique</p>
+        </div>
+
+        <div id="auth-section" class="auth-section">
+            <div id="user-info" class="user-info"></div>
+            <button id="login-btn" class="btn btn-primary btn-glass">
+                <i class="fab fa-google"></i>
+                <span>Connexion avec Google</span>
+            </button>
+            <button id="logout-btn" class="btn btn-danger btn-glass" style="display:none;">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Déconnexion</span>
+            </button>
+        </div>
+
+        <div id="dashboard" class="dashboard" style="display:none;">
+            <!-- Statistiques avec animations -->
+            <div class="stats-grid">
+                <div class="stat-card glass-card" data-aos="fade-up">
+                    <div class="stat-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total produits</h3>
+                        <p id="total-products" class="stat-number">0</p>
+                    </div>
+                </div>
+                <div class="stat-card glass-card alert-stat" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Stock critique</h3>
+                        <p id="critical-products" class="stat-number">0</p>
+                    </div>
+                </div>
+                <div class="stat-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>À acheter</h3>
+                        <p id="shopping-items" class="stat-number">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catégories avec effet glassmorphisme -->
+            <div class="categories-container">
+                <div class="category frigo glass-card" data-aos="fade-right">
+                    <div class="category-header">
+                        <i class="fas fa-snowflake"></i>
+                        <h2>Cellier Frais</h2>
+                        <span class="badge">Frigo</span>
+                    </div>
+                    <div class="add-item">
+                        <div class="input-group">
+                            <i class="fas fa-apple-alt"></i>
+                            <input type="text" id="frigo-item-name" placeholder="Nom du produit" class="glass-input">
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="number" id="frigo-item-quantity" placeholder="Quantité" value="1" min="1"
+                                class="glass-input">
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-balance-scale"></i>
+                            <select id="frigo-item-unit" class="glass-select">
+                                <option value="pièce(s)">Pièce(s)</option>
+                                <option value="kg">Kg</option>
+                                <option value="litre(s)">Litre(s)</option>
+                                <option value="sachet(s)">Sachet(s)</option>
+                                <option value="boîte(s)">Boîte(s)</option>
+                            </select>
+                        </div>
+                        <button onclick="window.addItem('frigo')" class="btn-add">
+                            <i class="fas fa-plus"></i>
+                            <span>Ajouter</span>
+                        </button>
+                    </div>
+                    <div id="frigo-items" class="items-list"></div>
+                </div>
+
+                <div class="category placard glass-card" data-aos="fade-left">
+                    <div class="category-header">
+                        <i class="fas fa-archive"></i>
+                        <h2>Réserve Sèche</h2>
+                        <span class="badge">Placard</span>
+                    </div>
+                    <div class="add-item">
+                        <div class="input-group">
+                            <i class="fas fa-box"></i>
+                            <input type="text" id="placard-item-name" placeholder="Nom du produit" class="glass-input">
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="number" id="placard-item-quantity" placeholder="Quantité" value="1" min="1"
+                                class="glass-input">
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-balance-scale"></i>
+                            <select id="placard-item-unit" class="glass-select">
+                                <option value="pièce(s)">Pièce(s)</option>
+                                <option value="kg">Kg</option>
+                                <option value="litre(s)">Litre(s)</option>
+                                <option value="sachet(s)">Sachet(s)</option>
+                                <option value="boîte(s)">Boîte(s)</option>
+                            </select>
+                        </div>
+                        <button onclick="window.addItem('placard')" class="btn-add">
+                            <i class="fas fa-plus"></i>
+                            <span>Ajouter</span>
+                        </button>
+                    </div>
+                    <div id="placard-items" class="items-list"></div>
+                </div>
+            </div>
+
+            <!-- Liste de course avec design chic -->
+            <div class="shopping-section glass-card" data-aos="fade-up">
+                <div class="section-header">
+                    <i class="fas fa-list-ul"></i>
+                    <h2>Liste de Course</h2>
+                    <button id="clear-shopping-list" class="btn-clear" style="display:none;">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>Vider</span>
+                    </button>
+                </div>
+                <div id="shopping-list" class="shopping-list"></div>
+                <div class="shopping-empty" id="shopping-empty">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>Votre liste de course est vide</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
